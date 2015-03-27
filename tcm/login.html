@@ -9,13 +9,13 @@
     <meta name="author" content="">
     <link rel="icon" href="img/scute.ico">
 
-    <title>Administration Portal Login</title>
+    <title>Terrapin Collection Manager Login</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great|Architects+Daughter|IM+Fell+English' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great|Architects+Daughter|Ubuntu' rel='stylesheet' type='text/css'>
     <link href="css/apshai.css" rel="stylesheet">
   </head>
 
@@ -27,7 +27,7 @@
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Terrapin Collection Administration</a>
+          <a class="navbar-brand" href="#">Terrapin Collection Manager</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -136,11 +136,21 @@
             var errorType   = data['errorType'];
 
             if (messageType == "Login Successful") {
-              alert("Success!");
 
-              window.localStorage.setItem("userName", userName);
-              window.localStorage.setItem("role", "Admin");
-              window.location = "./index.html"
+              var userID        = data['userID'];
+              var userRole      = data['userRole'];
+              var userFirstName = data['userFirstName'];
+              
+              sessionStorage.setItem("userName", userName);
+              sessionStorage.setItem("userID", userID);
+              sessionStorage.setItem("userRole", userRole);
+              sessionStorage.setItem("userFirstName", userFirstName);
+
+              if (userRole = "Admin") {
+                window.location = "./admin/admin.html";
+              } else {
+                window.location = "./index.html"
+              }
             } else {
               var errorMessage = data['errorMessage'];
               document.getElementById("sign-in-text").innerHTML = '<span style="color:red"><strong>' + errorMessage + '</span>   Please try again.</strong>';
