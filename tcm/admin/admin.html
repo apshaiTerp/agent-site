@@ -45,9 +45,9 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a>Home</a></li>
-            <li><a href="#">BGG</a></li>
-            <li><a href="#">CSI</a></li>
-            <li><a href="#">MM</a></li>
+            <li><a href="./bgg.html">BGG</a></li>
+            <li><a href="./csi.html">CSI</a></li>
+            <li><a href="./mm.html">MM</a></li>
             <li><a href="./about2.html">About</a></li>
           </ul>
 
@@ -79,7 +79,7 @@
         <div class="col-sm-12">
           <div class="panel panel-primary">
             <div class="panel-heading">BoardGameGeek Stats
-              <a href="#" id="bgg-button" class="btn btn-sm btn-success pull-right" role="button">Review BoardGameGeek Games</a>
+              <a href="./bgg.html" id="bgg-button" class="btn btn-sm btn-success pull-right" role="button">Review BoardGameGeek Games</a>
             </div>
             <div class="panel-body">
               <div class="row">
@@ -129,7 +129,7 @@
         <div class="col-sm-12">
           <div class="panel panel-primary">
             <div class="panel-heading">CoolStuffInc Stats
-              <a href="#" id="bgg-button" class="btn btn-sm btn-success pull-right" role="button">Review CoolStuffInc Games</a>
+              <a href="./csi.html" id="bgg-button" class="btn btn-sm btn-success pull-right" role="button">Review CoolStuffInc Games</a>
             </div>
             <div class="panel-body">
               <div class="row">
@@ -203,7 +203,7 @@
         <div class="col-sm-12">
           <div class="panel panel-primary">
             <div class="panel-heading">MiniatureMarket Stats
-              <a href="#" id="bgg-button" class="btn btn-sm btn-success pull-right" role="button">Review MiniatureMarket Games</a>
+              <a href="./mm.html" id="bgg-button" class="btn btn-sm btn-success pull-right" role="button">Review MiniatureMarket Games</a>
             </div>
             <div class="panel-body">
               <div class="row">
@@ -292,7 +292,7 @@
       };
 
       function populateBGGStats() {
-        var statURL = "http://107.188.249.238/ac-games-restservice-spring-0.2.0-SNAPSHOT/stats?type=bggGameStats";
+        var statURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/stats?type=bggGameStats";
 
         var statText = $.getJSON( statURL , { format: 'json' } )
             .done(function(data) {
@@ -313,7 +313,7 @@
 
       };
       function populateCSIStats() {
-        var statURL = "http://107.188.249.238/ac-games-restservice-spring-0.2.0-SNAPSHOT/stats?type=csiDataStats";
+        var statURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/stats?type=csiDataStats";
 
         var statText = $.getJSON( statURL , { format: 'json' } )
             .done(function(data) {
@@ -347,7 +347,7 @@
 
       };
       function populateMMStats() {
-        var statURL = "http://107.188.249.238/ac-games-restservice-spring-0.2.0-SNAPSHOT/stats?type=mmDataStats";
+        var statURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/stats?type=mmDataStats";
 
         var statText = $.getJSON( statURL , { format: 'json' } )
             .done(function(data) {

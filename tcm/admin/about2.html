@@ -16,7 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/apshai.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great|Architects+Daughter|IM+Fell+English' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great|Architects+Daughter|Ubuntu' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
@@ -31,7 +31,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="./index.html">Home</a></li>
+            <li><a href="./admin.html">Home</a></li>
+            <li><a href="./bgg.html">BGG</a></li>
+            <li><a href="./csi.html">CSI</a></li>
+            <li><a href="./mm.html">MM</a></li>
             <li class="active"><a>About</a></li>
           </ul>
 
@@ -44,8 +47,7 @@
               <input type="password" placeholder="Password" class="form-control">
             </div>
             -->
-            <a href="./login.html" id="login1-button" class="btn btn-success" role="button">Log In</a>
-            <a href="./signup.html" id="sign-up2-button" class="btn btn-success" role="button">Sign Up</a>
+            <a href="../index.html" id="logout-button" class="btn btn-success" onclick="logOutFunction()" type="button">Log Out</a>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
@@ -120,15 +122,8 @@
     <script src="js/bootstrap.min.js"></script>
 
     <script type='text/javascript'>//<![CDATA[ 
-      document.getElementById("login1-button").onClick = function() {
-        alert("I hit the login1 button");
-        window.location = "./login.html";
-      };
-      document.getElementById("sign-up1-button").onClick = function() {
-        window.location = "./signup.html";
-      };
-      document.getElementById("sign-up2-button").onClick = function() {
-        window.location = "./signup.html";
+      function logOutFunction() {
+        sessionStorage.clear();
       };
 
     </script>
