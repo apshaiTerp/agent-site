@@ -7,28 +7,8 @@ body {
   background-repeat: no-repeat;
 }
 
-.bg-home {
+.bg-admin {
   background: url('../img/mustacheTerp2.png') no-repeat center center;
-  position: absolute;
-  width: 100%;
-  height: 350px; 
-  top:20;
-  left:0;
-  z-index: -1;
-}
-
-.bg-login {
-  background: url('../img/awesomeTerp3.png') no-repeat center center;
-  position: absolute;
-  width: 100%;
-  height: 350px; 
-  top:20;
-  left:0;
-  z-index: -1;
-}
-
-.bg-signin {
-  background: url('../img/babyTerpBanner.png') no-repeat center center;
   position: absolute;
   width: 100%;
   height: 350px; 
@@ -39,6 +19,36 @@ body {
 
 .bg-about {
   background: url('../img/aboutBanner.png') no-repeat center center;
+  position: absolute;
+  width: 100%;
+  height: 350px; 
+  top:20;
+  left:0;
+  z-index: -1;
+}
+
+.bg-bgg {
+  background: url('../img/tokens.png') no-repeat center center;
+  position: absolute;
+  width: 100%;
+  height: 350px; 
+  top:20;
+  left:0;
+  z-index: -1;
+}
+
+.bg-csi {
+  background: url('../img/firefly.png') no-repeat center center;
+  position: absolute;
+  width: 100%;
+  height: 350px; 
+  top:20;
+  left:0;
+  z-index: -1;
+}
+
+.bg-mm {
+  background: url('../img/zombies.png') no-repeat center center;
   position: absolute;
   width: 100%;
   height: 350px; 
@@ -94,6 +104,14 @@ body {
   font-family: 'Ubuntu', cursive;
 }
 
+.btn-danger {
+  font-family: 'Ubuntu', cursive;
+}
+
+.badge {
+  font-family: 'Ubuntu', cursive;
+}
+
 p {
   font-size: 120%;
 }
@@ -105,4 +123,22 @@ p {
 .panel {
   background: transparent;
   border: 0 none;
+  margin-bottom: 1px;
+}
+
+.panel-footer {
+  background: transparent;
+  padding: 0px 0px;
+  border-top: 0 none;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.panel-heading {
+  font-family: 'Ubuntu', cursive;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }

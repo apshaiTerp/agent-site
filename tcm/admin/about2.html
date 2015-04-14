@@ -2,6 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script type='text/javascript'>//<![CDATA[ 
+      var userName = sessionStorage.getItem("userName");
+      var userRole = sessionStorage.getItem("userRole");
+
+      if (userName == null) {
+        window.location = "../login.html";
+      }
+      if (userRole != "Admin") {
+        window.location = "../login.html";
+      }
+    </script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,11 +39,14 @@
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand">Terrapin Collection Manager</a>
+          <a class="navbar-brand">Terrapin Collection Administration</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="./index.html">Home</a></li>
+            <li><a href="./admin.html">Home</a></li>
+            <li><a href="./bgg.html">BGG</a></li>
+            <li><a href="./csi.html">CSI</a></li>
+            <li><a href="./mm.html">MM</a></li>
             <li class="active"><a>About</a></li>
           </ul>
 
@@ -44,8 +59,7 @@
               <input type="password" placeholder="Password" class="form-control">
             </div>
             -->
-            <a href="./login.html" id="login1-button" class="btn btn-success" role="button">Log In</a>
-            <a href="./signup.html" id="sign-up2-button" class="btn btn-success" role="button">Sign Up</a>
+            <a href="../index.html" id="logout-button" class="btn btn-success" onclick="logOutFunction()" type="button">Log Out</a>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
@@ -120,15 +134,8 @@
     <script src="js/bootstrap.min.js"></script>
 
     <script type='text/javascript'>//<![CDATA[ 
-      document.getElementById("login1-button").onClick = function() {
-        alert("I hit the login1 button");
-        window.location = "./login.html";
-      };
-      document.getElementById("sign-up1-button").onClick = function() {
-        window.location = "./signup.html";
-      };
-      document.getElementById("sign-up2-button").onClick = function() {
-        window.location = "./signup.html";
+      function logOutFunction() {
+        sessionStorage.clear();
       };
 
     </script>
