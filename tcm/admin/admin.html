@@ -5,14 +5,14 @@
 
     <script type='text/javascript'>//<![CDATA[ 
       var userName = sessionStorage.getItem("userName");
-      var userRole = sessionStorage.getItem("role");
+      var userRole = sessionStorage.getItem("userRole");
 
-      //if (userName == null) {
-      //  window.location = "../login.html";
-      //}
-      //if (userRole != "Admin") {
-      //  window.location = "../login.html";
-      //}
+      if (userName == null) {
+        window.location = "../login.html";
+      }
+      if (userRole != "Admin") {
+        window.location = "../login.html";
+      }
     </script>
 
     <meta charset="utf-8">

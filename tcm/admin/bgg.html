@@ -4,14 +4,14 @@
 
     <script type='text/javascript'>//<![CDATA[ 
       var userName = sessionStorage.getItem("userName");
-      var userRole = sessionStorage.getItem("role");
+      var userRole = sessionStorage.getItem("userRole");
 
-      //if (userName == null) {
-      //  window.location = "../login.html";
-      //}
-      //if (userRole != "Admin") {
-      //  window.location = "../login.html";
-      //}
+      if (userName == null) {
+        window.location = "../login.html";
+      }
+      if (userRole != "Admin") {
+        window.location = "../login.html";
+      }
     </script>
 
     <meta charset="utf-8">
@@ -167,6 +167,7 @@
       
       function logOutFunction() {
         sessionStorage.clear();
+        localStorage.clear();
       };
 
       function rejectFunction() {
@@ -229,13 +230,11 @@
 
               alert(errorType + ": " + errorMessage);
             }
-
           },
           error: function (request, status, error) {
             alert("Approve Failed: " + request.responseText);
           }
         });
-        
       };
 
       function selectPub(pubName) {
@@ -330,8 +329,6 @@
             } else {
               document.getElementById("game-image").innerHTML = '<img src="' + imageURL + '" alt="No Image Found for this Game">';
             }
-
-
 
         });
       };
