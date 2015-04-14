@@ -243,8 +243,10 @@
       };
 
       function populateBGGFields() {
-        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/bggdata?review=new&source=hybrid";
+        //var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/bggdata?review=new&source=hybrid";
+        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/bggdata?bggid=161167&source=hybrid";
 
+        161167
         var doStuff = $.getJSON( reviewURL, { format: 'json'} )
           .done(function(data) {  
             //Store the object in memory to retrieve later

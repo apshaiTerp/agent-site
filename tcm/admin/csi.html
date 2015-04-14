@@ -268,7 +268,7 @@
 
           var currentItem = ui.item.value;
           //Now we want to do the quick game lookup
-          var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=game&value=full";
+          var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=game&value=" + currentItem;
           //var gameCompactURL = "http://localhost:8080/auto?source=game&value=" + currentItem;
 
           var doStuff = $.getJSON( gameCompactURL, { format: 'json'} )
