@@ -48,18 +48,10 @@
             <li><a href="./bgg.html">BGG</a></li>
             <li><a href="./csi.html">CSI</a></li>
             <li><a href="./mm.html">MM</a></li>
-            <li><a href="./about2.html">About</a></li>
+            <li><a href="./about.html">About</a></li>
           </ul>
 
           <form class="navbar-form navbar-right">
-            <!--
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            -->
             <a href="../index.html" id="logout-button" class="btn btn-success" onclick="logOutFunction()" type="button">Log Out</a>
           </form>
         </div><!--/.navbar-collapse -->
@@ -74,7 +66,19 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <div class="thumbnail">
+            Auto-Complete Loading Process:
+            <div class="progress" id="auto-progress">
+              <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span class="sr-only">40% Complete (success)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-sm-12">
           <div class="panel panel-primary">
@@ -288,7 +292,7 @@
     <script type='text/javascript'>//<![CDATA[ 
       
       function logOutFunction() {
-        sessionStorage.clear();
+        localStorage.clear();
       };
 
       function populateBGGStats() {
@@ -380,9 +384,154 @@
 
       };
 
-      var doBGGStats = populateBGGStats();
-      var doCSIStats = populateCSIStats();
-      var doMMStats  = populateMMStats();
+      populateBGGStats();
+      populateCSIStats();
+      populateMMStats();
+
+      function prePopulateAutoCompleteFields() {
+
+        console.log("Beginning Auto Comp prePop");
+
+        var gameSearchURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=game&value=full";
+        //var gameSearchURL = "http://localhost:8080/auto?source=game&value=full";
+
+        var bggSearchURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=bgg&value=full";
+        //var bggSearchURL = "http://localhost:8080/auto?source=bgg&value=full";
+
+        var csiSearchURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=csi&value=full";
+        //var csiSearchURL = "http://localhost:8080/auto?source=csi&value=full";
+
+        var mmSearchURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=mm&value=full";
+        //var mmSearchURL = "http://localhost:8080/auto?source=mm&value=full";
+
+        //This is the largest, so to avoid running out of memory, put this one in sessionStorage instead of local, 
+        //and we'll have to worry about clearing it out later
+        var testLocal = sessionStorage.getItem("gameAutoCompList");
+        if (testLocal != null) {
+          var testGameLocalArray = JSON.parse(testLocal);
+          console.log("I already have the Game List: " + testGameLocalArray.length);
+        } else {
+          console.log("Loading Game Data List");
+
+          for (i = 1; i <= 3; i++) { 
+            //Start with the game list first
+
+            var hasList = sessionStorage.getItem("gameAutoCompList");
+            if (hasList == null) {
+              $.getJSON( gameSearchURL, { format: 'json'})
+                  .done(function(data) {
+                    var tempGameList = data['wrapList'];
+
+                    try {
+                      console.log("tempGameList.length: " + tempGameList.length);
+                      sessionStorage.setItem("gameAutoCompList", JSON.stringify(tempGameList));
+                    } catch(err) {
+                      console.log("I got an error, this means I have a problem");
+                      console.log("err.message: " + err.message);
+                    }
+                  })
+                  .fail(function() {
+                    console.log("I could not load the Game searchList!");
+                    sessionStorage.removeItem("gameAutoCompList");
+                  });
+            }
+          } 
+
+          console.log("Finished loading Game Data");
+        }
+
+        $('.progress-bar').css('width', '25%').attr('aria-valuenow', 25);    
+
+        var testLocal = localStorage.getItem("bggAutoCompList");
+        if (testLocal != null) {
+          var testBGGLocalArray = JSON.parse(testLocal);
+          console.log("I already have the BGG List: " + testBGGLocalArray.length);
+        } else {
+          console.log("Loading BGG Data List");
+
+          for (i = 1; i <= 3; i++) { 
+            var hasList = localStorage.getItem("bggAutoCompList");
+            if (hasList == null) {
+              $.getJSON( bggSearchURL, { format: 'json'})
+                  .done(function(data) {
+                    var tempBGGList = data['wrapList'];
+
+                    console.log("tempBGGList.length: " + tempBGGList.length);
+                    
+                    localStorage.setItem("bggAutoCompList", JSON.stringify(tempBGGList));
+                  })
+                  .fail(function() {
+                    alert("I could not load the BGG searchList!");
+                    localStorage.removeItem("bggAutoCompList");
+                  });
+            }
+          } 
+
+          console.log("Finished loading BGG Data");
+        }
+
+        $('.progress-bar').css('width', '50%').attr('aria-valuenow', 50);    
+
+        testLocal = localStorage.getItem("csiAutoCompList");
+        if (testLocal != null) {
+          var testCSILocalArray = JSON.parse(testLocal);
+
+          console.log("I already have the CSI List: " + testCSILocalArray.length);
+
+        } else {
+          console.log("Loading CSI Data List");
+          
+          //Start with the game list first
+          $.getJSON( csiSearchURL, { format: 'json'})
+              .done(function(data) {
+                var tempCSIList = data['wrapList'];
+
+                console.log("tempCSIList.length: " + tempCSIList.length);
+                
+                localStorage.setItem("csiAutoCompList", JSON.stringify(tempCSIList));
+              })
+              .fail(function() {
+                alert("I could not load the CSI searchList!");
+                localStorage.removeItem("csiAutoCompList");
+              });
+
+          console.log("Finished loading CSI Data");
+        }
+
+        $('.progress-bar').css('width', '75%').attr('aria-valuenow', 75);    
+
+        testLocal = localStorage.getItem("mmAutoCompList");
+        if (testLocal != null) {
+          var testMMLocalArray = JSON.parse(testLocal);
+
+          console.log("I already have the MM List: " + testMMLocalArray.length);
+
+        } else {
+          console.log("Loading MM Data List");
+          
+          //Start with the game list first
+          $.getJSON( mmSearchURL, { format: 'json'})
+              .done(function(data) {
+                var tempMMList = data['wrapList'];
+
+                console.log("tempMMList.length: " + tempMMList.length);
+                
+                localStorage.setItem("mmAutoCompList", JSON.stringify(tempMMList));
+              })
+              .fail(function() {
+                alert("I could not load the MM searchList!");
+                localStorage.removeItem("mmAutoCompList");
+              });
+
+          console.log("Finished loading MM Data");
+        }
+
+        $('.progress-bar').css('width', '100%').attr('aria-valuenow', 100).removeClass("active");    
+
+        console.log("Prepop Complete");
+      };
+
+      prePopulateAutoCompleteFields();
 
     </script>
   </body>
