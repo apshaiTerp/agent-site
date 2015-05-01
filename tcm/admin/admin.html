@@ -413,7 +413,7 @@
         } else {
           console.log("Loading Game Data List");
 
-          for (i = 1; i <= 3; i++) { 
+          for (i = 1; i <= 1; i++) { 
             //Start with the game list first
 
             var hasList = sessionStorage.getItem("gameAutoCompList");
@@ -449,7 +449,7 @@
         } else {
           console.log("Loading BGG Data List");
 
-          for (i = 1; i <= 3; i++) { 
+          for (i = 1; i <= 1; i++) { 
             var hasList = localStorage.getItem("bggAutoCompList");
             if (hasList == null) {
               $.getJSON( bggSearchURL, { format: 'json'})
