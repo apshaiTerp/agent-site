@@ -23,8 +23,10 @@
 
     <title>Terrapin Collection Administration</title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- External core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/jquery-ui.css" rel="stylesheet">
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/apshai.css" rel="stylesheet">
@@ -47,18 +49,10 @@
             <li class="active"><a>BGG</a></li>
             <li><a href="./csi.html">CSI</a></li>
             <li><a href="./mm.html">MM</a></li>
-            <li><a href="./about2.html">About</a></li>
+            <li><a href="./about.html">About</a></li>
           </ul>
 
           <form class="navbar-form navbar-right">
-            <!--
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            -->
             <a href="../index.html" id="logout-button" class="btn btn-success" onclick="logOutFunction()" type="button">Log Out</a>
           </form>
         </div><!--/.navbar-collapse -->
@@ -73,7 +67,19 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <div class="thumbnail">
+            <div class="input-group col-md-12 col-sm-12 col-xs-12">
+              <input id="game-auto-complete" class="form-control" type="text" placeholder="Game Title To Review">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" id="game-search-button">Load Game for Review</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-sm-12">
           <div class="panel panel-primary">
@@ -91,6 +97,10 @@
                       <li class="list-group-item">
                         <span class="badge" id="gametype-badge">---</span>
                         Game Type
+                      </li>
+                      <li class="list-group-item">
+                        <span class="badge" id="review-badge">---</span>
+                        Review Status
                       </li>
                       <li class="list-group-item">
                         <span class="badge" id="minplayer-badge">---</span>
@@ -162,12 +172,31 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap-editable.js"></script>
 
     <script type='text/javascript'>//<![CDATA[ 
       
       function logOutFunction() {
-        sessionStorage.clear();
         localStorage.clear();
+        sessionStorage.clear();
+
+        //Remove all the specific items
+        localStorage.removeItem("bggdata");
+        localStorage.removeItem("bggAutoCompList");
+        localStorage.removeItem("bggAutoCompValue");
+
+        sessionStorage.removeItem("gameAutoCompList");
+
+        localStorage.removeItem("csidata");
+        localStorage.removeItem("csiGameID");
+        localStorage.removeItem("csiAutoCompList");
+        localStorage.removeItem("csiAutoCompValue");
+
+        localStorage.removeItem("mmdata");
+        localStorage.removeItem("mmGameID");
+        localStorage.removeItem("mmAutoCompList");
+        localStorage.removeItem("mmAutoCompValue");
       };
 
       function rejectFunction() {
@@ -175,7 +204,7 @@
         var bggData = JSON.parse(bggDataJSON);
 
         var bggID = bggData['bggID'];
-        var rejectURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/bggdata?bggid=" + bggID + "&review=reject";
+        var rejectURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/external/bggdata?bggid=" + bggID + "&review=reject";
 
         $.ajax({
           url: rejectURL,
@@ -209,7 +238,7 @@
         var bggData = JSON.parse(bggDataJSON);
 
         var bggID = bggData['bggID'];
-        var approveURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/bggdata?bggid=" + bggID + "&review=approve&primarypub=" + publisherName;
+        var approveURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/external/bggdata?bggid=" + bggID + "&review=approve&primarypub=" + publisherName;
 
         $.ajax({
           url: approveURL,
@@ -243,10 +272,9 @@
       };
 
       function populateBGGFields() {
-        //var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/bggdata?review=new&source=hybrid";
-        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/bggdata?bggid=161167&source=hybrid";
+        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/external/bggdata?review=new&source=hybrid";
+        //var reviewURL = "http://localhost:8080/external/bggdata?bggid=174829&source=hybrid";
 
-        161167
         var doStuff = $.getJSON( reviewURL, { format: 'json'} )
           .done(function(data) {  
             //Store the object in memory to retrieve later
@@ -255,6 +283,7 @@
             var panelHeader      = "" + data['name'] + "  (" + data['yearPublished'] + ")";
             var bggID            = data['bggID'];
             var gameType         = data['gameType'];
+            var reviewState      = data['reviewState'];
             var minPlayers       = data['minPlayers'];
             var maxPlayers       = data['maxPlayers'];
             var minPlayingTime   = "" + data['minPlayingTime'] + " minutes";
@@ -315,6 +344,7 @@
             document.getElementById("game-heading").innerHTML       = panelHeader;
             document.getElementById("bggid-badge").innerHTML        = bggID;
             document.getElementById("gametype-badge").innerHTML     = gameType;
+            document.getElementById("review-badge").innerHTML       = reviewState;
             document.getElementById("minplayer-badge").innerHTML    = minPlayers;
             document.getElementById("maxplayer-badge").innerHTML    = maxPlayers;
             document.getElementById("mintime-badge").innerHTML      = minPlayingTime;
@@ -332,10 +362,145 @@
               document.getElementById("game-image").innerHTML = '<img src="' + imageURL + '" alt="No Image Found for this Game">';
             }
 
+          });
+      };
+
+      populateBGGFields();
+
+      function loadAutoCompleteValues() {
+
+        console.log("Inside loadAutoCompleteValues");
+
+        $('#game-auto-complete').prop('disabled', true);
+        $('#game-search-button').prop('disabled', true);
+
+        var searchList = JSON.parse(localStorage.getItem("bggAutoCompList"));
+        $('#game-auto-complete').autocomplete({
+          source: searchList,
+          minLength: 3
+        });
+
+        console.log("I think I just got through the autocomplete setup");
+
+        $('#game-auto-complete').prop('disabled', false);
+        $('#game-auto-complete').on("autocompleteselect", function(event, ui) {
+          $('#game-search-button').prop('disabled', false);
+
+          var currentItem = ui.item.value;
+
+          console.log("The value I'm trying to look up is: " + currentItem);
+          
+          localStorage.setItem("bggAutoCompValue", currentItem);
         });
       };
 
-      var doStuff = populateBGGFields();
+      loadAutoCompleteValues();
+
+      document.getElementById("game-search-button").onclick = function() {
+        var currentItem = localStorage.getItem("bggAutoCompValue");
+        if (typeof currentItem === 'undefined') {
+          console.log("Ignore this event");
+          return;
+        }
+        if (currentItem == null) {
+          console.log("Still Ignore This Event");
+          return;
+        }
+        //Now we want to do the quick game lookup
+        var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=bgg&value=" + currentItem;
+        //var gameCompactURL = "http://localhost:8080/auto?source=bgg&value=" + currentItem;
+
+        console.log("The URL we are about to run is: " + gameCompactURL);
+
+        var doStuff = $.getJSON( gameCompactURL, { format: 'json'} )
+        .done(function(data) {  
+          //Store the object in memory to retrieve later
+          localStorage.setItem("bggdata", JSON.stringify(data));
+
+          var panelHeader      = "" + data['name'] + "  (" + data['yearPublished'] + ")";
+          var bggID            = data['bggID'];
+          var gameType         = data['gameType'];
+          var reviewState      = data['reviewState'];
+          var minPlayers       = data['minPlayers'];
+          var maxPlayers       = data['maxPlayers'];
+          var minPlayingTime   = "" + data['minPlayingTime'] + " minutes";
+          var maxPlayingTime   = "" + data['maxPlayingTime'] + " minutes";
+          var imageURL         = data['imageURL'];
+          var designers        = data['designers'];
+          var publishers       = data['publishers'];
+
+          var designerText = "";
+          if (designers.length == 0) {
+            designerText = "---";
+          } else {
+            if (designers.length == 1) {
+              designerText = designers[0];
+            } else {
+              designerText = designers[0] + ', ';
+            }
+            for (var pos = 1; pos < designers.length; pos++) {
+              designerText = designerText + designers[pos];
+              if (pos < (designers.length - 1)) {
+                designerText = designerText + ", ";
+              }
+              if (((pos % 2) == 1) && (pos < (designers.length - 1))) {
+                designerText = designerText + "<br>";
+              }
+            }
+          }
+
+          var publisherText = "";
+          if (publishers.length < 1) {
+            publisherText = "---";
+          } else {
+            if (publishers.length == 1) {
+              publisherText = publishers[0];
+            } else {
+              publisherText = publishers[0] + ', ';
+            }
+            for (var pos2 = 1; pos2 < publishers.length; pos2++) {
+              publisherText = publisherText + publishers[pos2];
+              if (pos2 < (publishers.length - 1)) {
+                publisherText = publisherText + ", ";
+              }
+              if (((pos2 % 2) == 1) && (pos2 < (publishers.length - 1))) {
+                publisherText = publisherText + "<br>";
+              }
+            }
+          }
+
+          var publisherListText = "";
+          if (publishers.length == 0) {
+            publisherListText = '<li onClick="selectPub(\'No Publishers Found\')"><a role="menuitem">No Publishers Found</a></li>';
+          } else {
+            for (var pos3 = 0; pos3 < publishers.length; pos3++) {
+              publisherListText = publisherListText + '<li onClick="selectPub(\'' + publishers[pos3] + '\')"><a role="menuitem">' + publishers[pos3] + '</a></li>';
+            }
+          }
+
+          document.getElementById("game-heading").innerHTML       = panelHeader;
+          document.getElementById("bggid-badge").innerHTML        = bggID;
+          document.getElementById("gametype-badge").innerHTML     = gameType;
+          document.getElementById("review-badge").innerHTML       = reviewState;
+          document.getElementById("minplayer-badge").innerHTML    = minPlayers;
+          document.getElementById("maxplayer-badge").innerHTML    = maxPlayers;
+          document.getElementById("mintime-badge").innerHTML      = minPlayingTime;
+          document.getElementById("maxtime-badge").innerHTML      = maxPlayingTime;
+          document.getElementById("designers-badge").innerHTML    = designerText;
+          document.getElementById("publishers-badge").innerHTML   = publisherText;
+          document.getElementById("publisher-dropdown").innerHTML = publisherListText;
+
+          document.getElementById("publisherMenu").innerHTML      = "Choose Primary Publisher";
+          $('#approveButton').prop('disabled', true);
+
+          if (imageURL == null) {
+            document.getElementById("game-image").innerHTML = '<img src="./img/dnf.png" alt="No Image Found for this Game">';
+          } else {
+            document.getElementById("game-image").innerHTML = '<img src="' + imageURL + '" alt="No Image Found for this Game">';
+          }
+        });
+      };
+
     </script>
   </body>
 </html>

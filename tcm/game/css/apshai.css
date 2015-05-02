@@ -5,16 +5,7 @@ body {
   background-image: url('../img/backgroundTerp.png');
   background-position: center top;
   background-repeat: no-repeat;
-}
-
-.bg-admin {
-  background: url('../img/mustacheTerp2.png') no-repeat center center;
-  position: absolute;
-  width: 100%;
-  height: 350px; 
-  top:20;
-  left:0;
-  z-index: -1;
+  font-family: 'Ubuntu', cursive;
 }
 
 .bg-about {
@@ -27,8 +18,8 @@ body {
   z-index: -1;
 }
 
-.bg-bgg {
-  background: url('../img/tokens.png') no-repeat center center;
+.bg-game {
+  background: url('../img/cargonoir.png') no-repeat center center;
   position: absolute;
   width: 100%;
   height: 350px; 
@@ -37,8 +28,8 @@ body {
   z-index: -1;
 }
 
-.bg-csi {
-  background: url('../img/firefly.png') no-repeat center center;
+.bg-user {
+  background: url('../img/dnd.png') no-repeat center center;
   position: absolute;
   width: 100%;
   height: 350px; 
@@ -47,8 +38,28 @@ body {
   z-index: -1;
 }
 
-.bg-mm {
-  background: url('../img/zombies.png') no-repeat center center;
+.bg-collection {
+  background: url('../img/micemystics.png') no-repeat center center;
+  position: absolute;
+  width: 100%;
+  height: 350px; 
+  top:20;
+  left:0;
+  z-index: -1;
+}
+
+.bg-recommend {
+  background: url('../img/dominion.png') no-repeat center center;
+  position: absolute;
+  width: 100%;
+  height: 350px; 
+  top:20;
+  left:0;
+  z-index: -1;
+}
+
+.bg-wishlist {
+  background: url('../img/flickem.png') no-repeat center center;
   position: absolute;
   width: 100%;
   height: 350px; 
@@ -72,6 +83,7 @@ body {
     box-shadow: 1;
     background: transparent;
     font-family: 'Architects Daughter', cursive;
+
 }
 
 .navbar-default {
@@ -103,14 +115,49 @@ body {
 
 .btn-primary {
   font-family: 'Ubuntu', cursive;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.btn-default {
+  font-family: 'Ubuntu', cursive;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.btn-warning {
+  font-family: 'Ubuntu', cursive;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .btn-success {
   font-family: 'Ubuntu', cursive;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .btn-danger {
   font-family: 'Ubuntu', cursive;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.btn-pad {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.btn-pad2 {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.btn-default.active {
+  background-color: #5cb85c;
 }
 
 .badge {
@@ -119,6 +166,23 @@ body {
 
 p {
   font-size: 120%;
+}
+
+.label-right {
+  float: right;
+  font-family: 'Ubuntu', cursive;
+  font-size: 90%;
+}
+
+.label-primary {
+  display: block;
+  font-family: 'Ubuntu', cursive;
+  font-size: 100%;
+  width: 100%;
+  padding: 6px 2px;
+  background-color: #222222;
+  border-color: #222;
+  opacity: .8;
 }
 
 .panel-body {
@@ -152,9 +216,42 @@ p {
 
 .list-group-item {
   opacity: .8;
+  display: block;
+  overflow: hidden;
+}
+
+.list-group-item2 {
+  opacity: 1;
 }
 
 img {
-  max-width: 100%;
-  height: auto;
+    display: block;
+    margin: auto;
+
+    height: auto;
+    max-height: 600px;
+
+    width: auto;
+    max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+    color: #FFFFFF;
+}
+a:visited {
+    color: #FFFFFF;
+}
+a:hover {
+    color: #FFFFFF;
+}
+a:active {
+    color: #FFFFFF;
+}
+
+div.collapse {
+    overflow:visible;
 }

@@ -127,7 +127,7 @@
         var jsonBody = '{ "userName" : "' + userName + '", "password" : "' + pwd + '" }';
         $.ajax ({
           type: 'POST',
-          url:  'http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/login',
+          url:  'http://107.188.249.238:8080/ac-games-restservice-spring-1.0/login',
           data: jsonBody,
           contentType: "application/json",
           dataType: 'json',
@@ -140,16 +140,38 @@
               var userID        = data['userID'];
               var userRole      = data['userRole'];
               var userFirstName = data['userFirstName'];
+              var collectionID  = data['collectionID'];
+
+              //Remove all the specific items
+              localStorage.clear();
+              sessionStorage.clear();
               
+              localStorage.removeItem("bggdata");
+              localStorage.removeItem("bggAutoCompList");
+              localStorage.removeItem("bggAutoCompValue");
+
+              localStorage.removeItem("gameAutoCompList");
+
+              localStorage.removeItem("csidata");
+              localStorage.removeItem("csiGameID");
+              localStorage.removeItem("csiAutoCompList");
+              localStorage.removeItem("csiAutoCompValue");
+
+              localStorage.removeItem("mmdata");
+              localStorage.removeItem("mmGameID");
+              localStorage.removeItem("mmAutoCompList");
+              localStorage.removeItem("mmAutoCompValue");
+
               sessionStorage.setItem("userName", userName);
               sessionStorage.setItem("userID", userID);
               sessionStorage.setItem("userRole", userRole);
               sessionStorage.setItem("userFirstName", userFirstName);
+              sessionStorage.setItem("collectionID", collectionID);
 
-              if (userRole = "Admin") {
+              if (userRole == "Admin") {
                 window.location = "./admin/admin.html";
               } else {
-                window.location = "./index.html"
+                window.location = "./game/home.html"
               }
             } else {
               var errorMessage = data['errorMessage'];
