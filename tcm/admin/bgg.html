@@ -204,7 +204,7 @@
         var bggData = JSON.parse(bggDataJSON);
 
         var bggID = bggData['bggID'];
-        var rejectURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/bggdata?bggid=" + bggID + "&review=reject";
+        var rejectURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/external/bggdata?bggid=" + bggID + "&review=reject";
 
         $.ajax({
           url: rejectURL,
@@ -238,7 +238,7 @@
         var bggData = JSON.parse(bggDataJSON);
 
         var bggID = bggData['bggID'];
-        var approveURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/bggdata?bggid=" + bggID + "&review=approve&primarypub=" + publisherName;
+        var approveURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/external/bggdata?bggid=" + bggID + "&review=approve&primarypub=" + publisherName;
 
         $.ajax({
           url: approveURL,
@@ -272,7 +272,7 @@
       };
 
       function populateBGGFields() {
-        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/bggdata?review=new&source=hybrid";
+        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/external/bggdata?review=new&source=hybrid";
         //var reviewURL = "http://localhost:8080/external/bggdata?bggid=174829&source=hybrid";
 
         var doStuff = $.getJSON( reviewURL, { format: 'json'} )
@@ -407,7 +407,7 @@
           return;
         }
         //Now we want to do the quick game lookup
-        var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=bgg&value=" + currentItem;
+        var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=bgg&value=" + currentItem;
         //var gameCompactURL = "http://localhost:8080/auto?source=bgg&value=" + currentItem;
 
         console.log("The URL we are about to run is: " + gameCompactURL);

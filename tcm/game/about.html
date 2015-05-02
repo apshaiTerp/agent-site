@@ -5,11 +5,18 @@
     <script type='text/javascript'>//<![CDATA[ 
       var userName = sessionStorage.getItem("userName");
       var userRole = sessionStorage.getItem("userRole");
+      var userID   = sessionStorage.getItem("userID");
 
       if (userName == null) {
+        console.log("I hate you");
         window.location = "../login.html";
       }
-      if (userRole != "Admin") {
+      if (userRole != "User") {
+        console.log("I hate you more");
+        window.location = "../login.html";
+      }
+      if (userID == null) {
+        console.log("I hate you most");
         window.location = "../login.html";
       }
     </script>
@@ -39,7 +46,7 @@
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand">Terrapin Collection Administration</a>
+          <a class="navbar-brand">Terrapin Collection Manager</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">

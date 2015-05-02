@@ -65,7 +65,7 @@
     <div class="bg-collection"></div>
     <div class="jumbotron">
       <div class="container-fluid">
-        <h3 align="center">This is some filler text right here</h3>
+        <h3 align="center">Gaze upon the Wonders of your Collection!</h3>
       </div>
     </div>
 
@@ -237,7 +237,7 @@
         var removeItemID = sessionStorage.getItem("removeItemID");
         var userID       = sessionStorage.getItem("userID");
 
-        var removeURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/collectionitem?itemid=" + removeItemID + "&userid=" + userID;
+        var removeURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/collectionitem?itemid=" + removeItemID + "&userid=" + userID;
         //var removeURL = "http://localhost:8080/collectionitem?itemid=" + removeItemID + "&userid=" + userID;
 
         console.log("About the run the following command: " + removeURL);
@@ -274,7 +274,7 @@
         var removeItemID = sessionStorage.getItem("removeItemID");
         var userID       = sessionStorage.getItem("userID");
 
-        var removeURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/collectionitem?itemid=" + removeItemID + "&userid=" + userID + "&cascade=yes";
+        var removeURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/collectionitem?itemid=" + removeItemID + "&userid=" + userID + "&cascade=yes";
         //var removeURL = "http://localhost:8080/collectionitem?itemid=" + removeItemID + "&userid=" + userID + "&cascade=yes";
 
         console.log("About the run the following command: " + removeURL);
@@ -310,7 +310,7 @@
       function getCollectionStatsFunction() {
         var userID  = sessionStorage.getItem("userID");
 
-        var statURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/stats?type=user&userid=" + userID;
+        var statURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/stats?type=user&userid=" + userID;
         //var statURL = "http://localhost:8080/stats?type=user&userid=" + userID;
         
         $.getJSON( statURL, { format: 'json'})
@@ -331,7 +331,7 @@
       function getCollectionListGroupFunction() {
         var collectionID = sessionStorage.getItem("collectionID");
 
-        var collectionURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/collection?collectionid=" + collectionID + "&compact=y";
+        var collectionURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/collection?collectionid=" + collectionID + "&compact=y";
         //var collectionURL = "http://localhost:8080/collection?collectionid=" + collectionID + "&compact=y";
 
         $.getJSON( collectionURL, { format: 'json'})

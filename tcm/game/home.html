@@ -94,7 +94,7 @@
         <div class="col-xs-12">
           <div class="panel panel-primary">
             <div class="panel-heading panel-title" id="collection-heading">Collection Summary
-              <a href="#" id="view-button" class="btn btn-sm btn-primary pull-right" role="button">View Collection</a>
+              <a href="./wishlist.html" id="view-button" class="btn btn-sm btn-primary pull-right" role="button">View Collection</a>
             </div>
           </div>
           <div class="panel-body">
@@ -221,16 +221,17 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="panel panel-primary">
-            <div class="panel-heading panel-title" id="collection-heading">Last Played Games
+            <div class="panel-heading panel-title" id="collection-heading">Recently Added Wishlist Games
+              <a href="./wishlist.html" id="wish-button" class="btn btn-sm btn-primary pull-right" role="button">View Wishlist</a>
             </div>
           </div>
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-12">
                 <div class="thumbnail">
-                  <ul class="list-group">
+                  <ul class="list-group" id="wish-list">
                     <li class="list-group-item">
-                      <strong>No Games Were Recently Played</strong>
+                      <strong>No Games Are On the Wishlist</strong>
                     </li>
                   </ul>
                 </div>
@@ -243,8 +244,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="panel panel-primary">
-            <div class="panel-heading panel-title" id="collection-heading">Wishlist Games Available
-              <a href="#" id="view-button" class="btn btn-sm btn-primary pull-right" role="button">View Wishlist</a>
+            <div class="panel-heading panel-title" id="collection-heading">Last Played Games
             </div>
           </div>
           <div class="panel-body">
@@ -253,7 +253,7 @@
                 <div class="thumbnail">
                   <ul class="list-group">
                     <li class="list-group-item">
-                      <strong>No Games Are On the Wishlist</strong>
+                      <strong>No Games Were Recently Played</strong>
                     </li>
                   </ul>
                 </div>
@@ -287,12 +287,18 @@
         localStorage.clear();
       };
 
+      function imgError(image) {
+        image.onerror = "";
+        image.src = "./img/question.png";
+        return true;
+      }
+
       function prePopulateAutoCompleteFields() {
 
         $('#game-auto-complete').prop('disabled', true);
         $('#game-search-button').prop('disabled', true);
 
-        var gameSearchURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=game&value=full";
+        var gameSearchURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=game&value=full";
         //var gameSearchURL = "http://localhost:8080/auto?source=game&value=full";
 
         //This is the largest, so to avoid running out of memory, put this one in sessionStorage instead of local, 
@@ -314,7 +320,7 @@
             //console.log("The value I'm trying to look up is: " + currentItem);
             
             //Now we want to do the quick game lookup
-            var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=game&value=" + currentItem;
+            var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=game&value=" + currentItem;
             //var gameCompactURL = "http://localhost:8080/auto?source=game&value=" + currentItem;
 
             console.log("The URL we are about to run is: " + gameCompactURL);
@@ -367,7 +373,7 @@
                         //console.log("The value I'm trying to look up is: " + currentItem);
                         
                         //Now we want to do the quick game lookup
-                        var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=game&value=" + currentItem;
+                        var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=game&value=" + currentItem;
                         //var gameCompactURL = "http://localhost:8080/auto?source=game&value=" + currentItem;
 
                         console.log("The URL we are about to run is: " + gameCompactURL);
@@ -430,7 +436,7 @@
       function getCollectionStatsFunction() {
         var userID  = sessionStorage.getItem("userID");
 
-        var statURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/stats?type=user&userid=" + userID;
+        var statURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/stats?type=user&userid=" + userID;
         //var statURL = "http://localhost:8080/stats?type=user&userid=" + userID;
         
         $.getJSON( statURL, { format: 'json'})
@@ -469,7 +475,7 @@
       function getTop5GamesFunction() {
         var collectionID  = sessionStorage.getItem("collectionID");
 
-        var collectURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/collection?collectionid=" + collectionID + "&topx=5";
+        var collectURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/collection?collectionid=" + collectionID + "&topx=5";
         //var collectURL = "http://localhost:8080/collection?collectionid=" + collectionID + "&topx=5";
 
         $.getJSON( collectURL, { format: 'json'})
@@ -493,7 +499,7 @@
                   }
 
                   //Note:  Somewhere in here we need to add a button as well.
-                  var recentGameText = '<li class="list-group-item"><div class="media"><div class="media-left"><img class="media-object" id="thumbnail-image" src="' + recentGameThumb + '" alt="./img/question.png" style="max-height: 64px; max-width: 64px;"/></div><div class="media-body"><h4 class="media-heading">' + recentDisplay + '</h4>' + recentText + '<a id="' + recentGameID + '-button" class="btn btn-sm btn-primary pull-right" role="button">View Game</a></div></div></li>';
+                  var recentGameText = '<li class="list-group-item"><div class="media"><div class="media-left"><img class="media-object" id="thumbnail-image" src="' + recentGameThumb + '" onerror="imgError(this);" style="max-height: 64px; max-width: 64px;"/></div><div class="media-body"><h4 class="media-heading">' + recentDisplay + '</h4>' + recentText + '<a id="' + recentGameID + '-button" class="btn btn-sm btn-primary pull-right" role="button">View Game</a></div></div></li>';
 
                   masterText = masterText + recentGameText;
                 }
@@ -515,6 +521,55 @@
       };
 
       getTop5GamesFunction();
+
+      function getTop5WishlistFunction() {
+        var userID  = sessionStorage.getItem("userID");
+
+        var wishURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/wishlist?userid=" + userID + "&display=compact&topx=5";
+        //var collectURL = "http://localhost:8080/wishlist?userid=" + userID + "&display=compact&topx=5";
+
+        $.getJSON( wishURL, { format: 'json'})
+            .done(function(data) {
+              if (data.length == 0) {
+                document.getElementById("wish-list").innerHTML = '<li class="list-group-item"><strong>No Games Are On the Wishlist</strong></li>';
+              } else {
+                var masterText = "";
+
+                for (gameLoop = 0; gameLoop < data.length; gameLoop++) {
+                  var curGame = data[gameLoop];
+
+                  //Store the object in memory to retrieve later
+                  var recentGameID    = curGame['sourceID'];
+                  var recentGameThumb = curGame['thumbnailURL'];
+                  var recentDisplay   = curGame['displayString'];
+
+                  if (recentGameThumb == null) {
+                    recentGameThumb = 'img/question.png';
+                  }
+
+                  //Note:  Somewhere in here we need to add a button as well.
+                  var recentGameText = '<li class="list-group-item"><div class="media"><div class="media-left"><img class="media-object" id="thumbnail-image" src="' + recentGameThumb + '" onerror="imgError(this);" style="max-height: 64px; max-width: 64px;"/></div><div class="media-body"><h4 class="media-heading">' + recentDisplay + '</h4><a id="wish-' + recentGameID + '-button" class="btn btn-sm btn-primary pull-right" role="button">View Game</a>Game ID: ' + recentGameID + '</div></div></li>';
+
+                  masterText = masterText + recentGameText;
+                }
+
+                //console.log("About to add the full masterText block");
+
+                document.getElementById("wish-list").innerHTML = masterText;                        
+
+                //Now we need to loop back through and create button onclick functions for each element
+                for (gameLoop = 0; gameLoop < data.length; gameLoop++) {
+                  var curGame = data[gameLoop];
+
+                  var recentGameID = curGame['sourceID'];
+
+                  eval('document.getElementById("wish-' + recentGameID  + '-button").onclick = function() { sessionStorage.setItem("searchGameID", ' + recentGameID + '); window.location = "./game.html"; };');
+                }
+              }//end else there are items
+            });
+      };
+
+      getTop5WishlistFunction();
 
     </script>
   </body>

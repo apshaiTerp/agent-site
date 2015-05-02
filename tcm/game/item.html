@@ -411,7 +411,7 @@
         var removeItemID = sessionStorage.getItem("viewItemID");
         var userID       = sessionStorage.getItem("userID");
 
-        var removeURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/collectionitem?itemid=" + removeItemID + "&userid=" + userID;
+        var removeURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/collectionitem?itemid=" + removeItemID + "&userid=" + userID;
         //var removeURL = "http://localhost:8080/collectionitem?itemid=" + removeItemID + "&userid=" + userID;
 
         console.log("About the run the following command: " + removeURL);
@@ -452,7 +452,7 @@
         var removeItemID = sessionStorage.getItem("viewItemID");
         var userID       = sessionStorage.getItem("userID");
 
-        var removeURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/collectionitem?itemid=" + removeItemID + "&userid=" + userID + "&cascade=yes";
+        var removeURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/collectionitem?itemid=" + removeItemID + "&userid=" + userID + "&cascade=yes";
         //var removeURL = "http://localhost:8080/collectionitem?itemid=" + removeItemID + "&userid=" + userID + "&cascade=yes";
 
         console.log("About the run the following command: " + removeURL);
@@ -592,7 +592,7 @@
           var itemID       = sessionStorage.getItem("viewItemID");
           var collectionID = sessionStorage.getItem("collectionID");
 
-          var updateItemURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/collectionitem?itemid=" + itemID + "&collectionid=" + collectionID;
+          var updateItemURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/collectionitem?itemid=" + itemID + "&collectionid=" + collectionID;
           //var updateItemURL = "http://localhost:8080/collectionitem?itemid=" + itemID + "&collectionid=" + collectionID;
 
           console.log("The URL we are about to PUT to: " + updateItemURL);
@@ -648,7 +648,7 @@
         sessionStorage.removeItem("overrideWhere");
         sessionStorage.removeItem("hasExpansions");
 
-        var gameURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/collectionitem?itemid=" + itemID;
+        var gameURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/collectionitem?itemid=" + itemID;
         $.getJSON( gameURL, { format: 'json'} )
             .done(function(data) {
               var gameData   = data['game'];
@@ -869,7 +869,7 @@
                 } else {
                   var userID = sessionStorage.getItem("userID");
 
-                  var parentURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=item&value=<" + parentGame + ">&userid=" + userID;
+                  var parentURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=item&value=<" + parentGame + ">&userid=" + userID;
                   //var parentURL = "http://localhost:8080/auto?source=game&value=<" + parentGame + ">&userid=" + userID;
 
                   console.log("parentURL: " + parentURL);
@@ -951,7 +951,7 @@
 
                   var userID = sessionStorage.getItem("userID");
 
-                  var expURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=item&value=" + expIDString + "&userid=" + userID;
+                  var expURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=item&value=" + expIDString + "&userid=" + userID;
                   //var expURL = "http://localhost:8080/auto?source=item&value=<" + expIDString + ">&userid=" + userID;
 
                   console.log("expURL: " + expURL);
@@ -1031,8 +1031,8 @@
               }
 
                             //Now we need to call out and get the price data
-              var csiPriceURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/gamereltn?gameid=" + gameID + "&vendor=csi";
-              //var csiPriceURL = "http://localhost:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/gamereltn?gameid=" + gameID + "&vendor=csi";
+              var csiPriceURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/gamereltn?gameid=" + gameID + "&vendor=csi";
+              //var csiPriceURL = "http://localhost:8080/ac-games-restservice-spring-1.0/gamereltn?gameid=" + gameID + "&vendor=csi";
 
               $.getJSON( csiPriceURL, { format: 'json'} )
                   .done(function(data) {
@@ -1072,8 +1072,8 @@
                     }
                   });
 
-              var mmPriceURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/gamereltn?gameid=" + gameID + "&vendor=mm";
-              //var mmPriceURL = "http://localhost:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/gamereltn?gameid=" + gameID + "&vendor=mm";
+              var mmPriceURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/gamereltn?gameid=" + gameID + "&vendor=mm";
+              //var mmPriceURL = "http://localhost:8080/ac-games-restservice-spring-1.0/gamereltn?gameid=" + gameID + "&vendor=mm";
 
               $.getJSON( mmPriceURL, { format: 'json'} )
                   .done(function(data) {

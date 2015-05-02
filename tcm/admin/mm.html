@@ -205,7 +205,7 @@
         var mmData     = JSON.parse(mmDataJSON);
 
         var mmID       = mmData['mmID'];
-        var rejectURL  = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/mmdata?mmid=" + mmID + "&review=reject";
+        var rejectURL  = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/external/mmdata?mmid=" + mmID + "&review=reject";
         //var rejectURL  = "http://localhost:8080/external/mmdata?mmid=" + mmID + "&review=reject";
 
         $.ajax({
@@ -240,7 +240,7 @@
         var mmID       = mmData['mmID'];
         var gameID     = localStorage.getItem("mmGameID");
 
-        var approveURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/mmdata?mmid=" + mmID + "&review=approve&gameid=" + gameID;
+        var approveURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/external/mmdata?mmid=" + mmID + "&review=approve&gameid=" + gameID;
         //var approveURL = "http://localhost:8080/external/mmdata?mmid=" + mmID + "&review=approve&gameid=" + gameID;
 
         $.ajax({
@@ -283,7 +283,7 @@
 
           var currentItem = ui.item.value;
           //Now we want to do the quick game lookup
-          var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=game&value=" + currentItem;
+          var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=game&value=" + currentItem;
           //var gameCompactURL = "http://localhost:8080/auto?source=game&value=" + currentItem;
 
           var doStuff = $.getJSON( gameCompactURL, { format: 'json'} )
@@ -309,7 +309,7 @@
       var buildAutoComplete = loadGameAutoCompleteValues();
 
       function populateMMFields() {
-        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/mmdata?review=new&source=db";
+        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/external/mmdata?review=new&source=db";
         //var reviewURL = "http://localhost:8080/external/mmdata?review=new&source=db";
 
         var doStuff = $.getJSON( reviewURL, { format: 'json'} )
@@ -399,7 +399,7 @@
           return;
         }
 
-        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=mm&value=" + currentItem;
+        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=mm&value=" + currentItem;
         //var reviewURL = "http://localhost:8080/auto?source=mm&value=" + currentItem;
 
         var doStuff = $.getJSON( reviewURL, { format: 'json'} )

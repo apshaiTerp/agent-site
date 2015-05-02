@@ -204,7 +204,7 @@
         var csiData = JSON.parse(csiDataJSON);
 
         var csiID = csiData['csiID'];
-        var rejectURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/csiid=" + csiID + "&review=reject";
+        var rejectURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/external/csiid=" + csiID + "&review=reject";
         //var rejectURL = "http://localhost:8080/external/csidata?csiid=" + csiID + "&review=reject";
 
         $.ajax({
@@ -239,7 +239,7 @@
         var csiID       = csiData['csiID'];
         var gameID      = localStorage.getItem("csiGameID");
 
-        var approveURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/csidata?csiid=" + csiID + "&review=approve&gameid=" + gameID;
+        var approveURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/external/csidata?csiid=" + csiID + "&review=approve&gameid=" + gameID;
         //var approveURL = "http://localhost:8080/external/csidata?csiid=" + csiID + "&review=approve&gameid=" + gameID;
 
         $.ajax({
@@ -289,7 +289,7 @@
 
           console.log("The value I'm trying to look up is: " + currentItem);
           //Now we want to do the quick game lookup
-          var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=game&value=" + currentItem;
+          var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=game&value=" + currentItem;
           //var gameCompactURL = "http://localhost:8080/auto?source=game&value=" + currentItem;
 
           console.log("The URL we are about to run is: " + gameCompactURL);
@@ -327,7 +327,7 @@
 
         console.log("Inside populateCSIFields!");
 
-        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/external/csidata?review=new&source=db";
+        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/external/csidata?review=new&source=db";
         //var reviewURL = "http://localhost:8080/external/csidata?review=new&source=db";
 
         var doStuff = $.getJSON( reviewURL, { format: 'json'} )
@@ -423,7 +423,7 @@
           return;
         }
 
-        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=csi&value=" + currentItem;
+        var reviewURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=csi&value=" + currentItem;
         //var reviewURL = "http://localhost:8080/auto?source=csi&value=" + currentItem;
 
         var doStuff = $.getJSON( reviewURL, { format: 'json'} )

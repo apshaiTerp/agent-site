@@ -311,6 +311,25 @@
         </div>
       </div>
     </div>
+    <div id="success-modal2" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Success!</h4>
+          </div>
+          <div class="modal-body">
+            <p>The Game has been added to your Wishlist!</p>
+          </div>
+          <div class="model-footer">
+            <button type="button" class="btn btn-success btn-pad pull-right" data-dismiss="modal">
+              <span class="glyphicon glyphicon-thumbs-up"></span>OK
+            </button>
+            <br><br>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="container">
       <hr>
@@ -349,7 +368,7 @@
         var jsonBody = '{ "gameID": "' + gameID + '", "userID": "' + userID + '" }';
         $.ajax ({
           type: 'POST',
-          url: 'http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/collection/add',
+          url: 'http://107.188.249.238:8080/ac-games-restservice-spring-1.0/collection/add',
           data: jsonBody,
           contentType: "application/json",
           dataType: 'json',
@@ -376,7 +395,32 @@
         var gameID = sessionStorage.getItem("searchGameID");
         var userID = sessionStorage.getItem("userID");
 
-        console.log("I need to add gameID " + gameID + " to userID " + userID + "'s Wishlist");
+        //console.log("I need to add gameID " + gameID + " to userID " + userID + "'s Wishlist");
+
+        var jsonBody = '{ "gameID": "' + gameID + '", "userID": "' + userID + '" }';
+        $.ajax ({
+          type: 'POST',
+          url: 'http://107.188.249.238:8080/ac-games-restservice-spring-1.0/wishlist',
+          data: jsonBody,
+          contentType: "application/json",
+          dataType: 'json',
+          success: function(data) {
+            var messageType = data['messageType'];
+            var errorType   = data['errorType'];
+
+            if (messageType == "Operation Successful") {
+              var message = data['message'];
+              $('#success-modal2').modal('show');
+            } else {
+              var errorMessage = data['errorMessage'];
+              alert(errorType + ": " + errorMessage);
+            }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            alert('An Unknown Error Occured During Add Task.  Please Try Again Later.');
+          }
+
+        });
       };
 
       function populateGameFieldsFunction() {
@@ -386,7 +430,7 @@
           return;
         }
 
-        var gameURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/game?gameid=" + gameID;
+        var gameURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/game?gameid=" + gameID;
         $.getJSON( gameURL, { format: 'json'} )
             .done(function(data) {  
 
@@ -553,7 +597,7 @@
                 } else {
                   //console.log("Attempting to look up parentGame: " + parentGame);
 
-                  var parentURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=game&value=<" + parentGame + ">";
+                  var parentURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=game&value=<" + parentGame + ">";
                   //var parentURL = "http://localhost:8080/auto?source=game&value=<" + parentGame + ">;
 
                   console.log("parentURL: " + parentURL);
@@ -607,7 +651,7 @@
 
                   //console.log("The expIDString I want to look up is: " + expIDString);
 
-                  var expURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=game&value=<" + expIDString + ">";
+                  var expURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=game&value=<" + expIDString + ">";
                   //var expURL = "http://localhost:8080/auto?source=game&value=<" + expIDString + ">;
 
                   console.log("The expURL: " + expURL);
@@ -657,8 +701,8 @@
             }); //End Json call
 
             //Now we need to call out and get the price data
-            var csiPriceURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/gamereltn?gameid=" + gameID + "&vendor=csi";
-            //var csiPriceURL = "http://localhost:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/gamereltn?gameid=" + gameID + "&vendor=csi";
+            var csiPriceURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/gamereltn?gameid=" + gameID + "&vendor=csi";
+            //var csiPriceURL = "http://localhost:8080/ac-games-restservice-spring-1.0/gamereltn?gameid=" + gameID + "&vendor=csi";
 
             $.getJSON( csiPriceURL, { format: 'json'} )
                 .done(function(data) {
@@ -698,8 +742,8 @@
                   }
                 });
 
-            var mmPriceURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/gamereltn?gameid=" + gameID + "&vendor=mm";
-            //var mmPriceURL = "http://localhost:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/gamereltn?gameid=" + gameID + "&vendor=mm";
+            var mmPriceURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/gamereltn?gameid=" + gameID + "&vendor=mm";
+            //var mmPriceURL = "http://localhost:8080/ac-games-restservice-spring-1.0/gamereltn?gameid=" + gameID + "&vendor=mm";
 
             $.getJSON( mmPriceURL, { format: 'json'} )
                 .done(function(data) {
@@ -760,7 +804,7 @@
           //console.log("The value I'm trying to look up is: " + currentItem);
           
           //Now we want to do the quick game lookup
-          var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-0.3.0-SNAPSHOT/auto?source=game&value=" + currentItem;
+          var gameCompactURL = "http://107.188.249.238:8080/ac-games-restservice-spring-1.0/auto?source=game&value=" + currentItem;
           //var gameCompactURL = "http://localhost:8080/auto?source=game&value=" + currentItem;
 
           console.log("The URL we are about to run is: " + gameCompactURL);
